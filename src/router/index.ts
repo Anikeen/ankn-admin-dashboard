@@ -1,15 +1,16 @@
 import { FC } from 'react';
+import { Login } from '../views/auth/Login';
 
 interface Route {
   path: string;
-  component: string;
+  component: FC;
   exact?: boolean;
 }
 
 export const publicRoutes: Route[] = [
-  { path: '/', component: '', exact: true },
+  { path: '/', component: Login, exact: true },
 ]
 
 export const privateRoutes: Route[] = [
-  { path: '/', component: '', exact: true },
+  // { path: '/', component: '', exact: true },
 ]

@@ -1,10 +1,21 @@
+import { useState } from "react";
+import { AuthContext } from "./context";
+import { GlobalStyles } from "./styles/global";
+import { Login } from "./views/auth/Login";
 
-function App() {
+
+export const App = () => {
+  const [isAuth, setIsAuth] = useState(false);
+
+  const signIn = (login: string, password: string) => {
+    setIsAuth(true);
+  }
+
   return (
-    <div className="page-wrapper">
-
-    </div>
+    <AuthContext.Provider value={{ isAuth, signIn }}>
+      <GlobalStyles />
+      <Login />
+    </AuthContext.Provider>
   );
 }
 
-export default App;
