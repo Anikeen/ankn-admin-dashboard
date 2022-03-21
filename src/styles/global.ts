@@ -16,15 +16,21 @@ export const GlobalStyles = createGlobalStyle`
     outline: none;
     border: none;
     font-size: inherit;
+    font-family: inherit;
   }
   button {
     background: none;
     cursor: pointer;
+  }
+  a {
+    text-decoration: none;
+    color: inherit;
   }
   body {
     font-family: Nunito,sans-serif;
     font-size: 1rem;
     line-height: 1.25rem;
     color: #333;
+    overflow: hidden;
   }
 `
