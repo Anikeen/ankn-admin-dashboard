@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { StyledLink, Icon } from "./styled";
+import { StyledLink, NavIcon } from "./styled";
 
 interface IMenuLinkProps {
   to: string;
@@ -12,7 +12,7 @@ export const MenuLink: FC<IMenuLinkProps> = ({ to, text, icon, size }) => {
   return (
     <li>
       <StyledLink to={to}>
-        <Icon className={icon} fontSize={size} />
+        <NavIcon className={icon} size={size} />
         {text}
       </StyledLink>
     </li>

@@ -1,6 +1,6 @@
 import { FC, useState } from "react"
 import { Shevron } from "../../../../UI/Icon/Shevron";
-import { Button, Icon } from "./styled"
+import { Button, NavIcon } from "./styled"
 
 interface ISubListProps {
   name: string;
@@ -14,7 +14,7 @@ export const SubList: FC<ISubListProps> = ({ name, icon, size, children }) => {
   return (
     <li>
       <Button onClick={() => setIsShown(!isShown)}>
-        <Icon className={icon} fontSize={size} />
+        <NavIcon className={icon} size={size} />
         {name}
         <Shevron className="icon-chevron-down" isShown={isShown} />
       </Button>

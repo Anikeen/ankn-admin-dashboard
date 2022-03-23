@@ -1,5 +1,6 @@
 import { NavLink } from "react-router-dom";
 import styled, { css } from "styled-components";
+import { Icon } from "../../../../UI/Icon/Icon";
 
 const menuItem = css`
   display: flex;
@@ -34,8 +35,6 @@ export const Button = styled.button`
   ${menuItem}
 `
 
-export const Icon = styled.span<{ fontSize: number }>(({ fontSize }) =>
-  `
-  font-size: ${fontSize}rem;
+export const NavIcon = styled(Icon)`
   margin-right: 1rem;
-`)
+`

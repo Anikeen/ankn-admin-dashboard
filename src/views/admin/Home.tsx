@@ -40,9 +40,9 @@ export const Home = () => {
       <ContentHeader title="Главная" />
       <section>
         <Grid>
-          {widgets.map(widget => {
+          {widgets.map((widget, i) => {
             return (
-              <GridItem width={25}>
+              <GridItem width={25} key={i}>
                 <InfoWidget
                   icon={widget.icon}
                   count={widget.count}

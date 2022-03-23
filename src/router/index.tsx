@@ -1,5 +1,6 @@
 import { ReactNode } from 'react';
 import { Home } from '../views/admin/Home';
+import { Orders } from '../views/admin/Orders';
 import { Login } from '../views/auth/Login';
 
 interface Route {
@@ -14,4 +15,5 @@ export const publicRoutes: Route[] = [
 
 export const privateRoutes: Route[] = [
   { path: '/', element: <Home />, exact: true },
+  { path: '/orders', element: <Orders />, exact: true },
 ]
