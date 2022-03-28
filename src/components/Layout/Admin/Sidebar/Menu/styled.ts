@@ -29,6 +29,9 @@ export const SubLink = styled(NavLink)`
   font-weight: 600;
   text-align: center;
   background-color: #f5f5f5;
+  &.active {
+    color: #4272d7;
+  }
 `
 
 export const Button = styled.button`
