@@ -14,7 +14,7 @@ export const Breadcrumbs: FC<IBreadcrumbs> = ({ links, current }) => {
         Главная
       </Link>
 
-      {links.map(link => <Link to={link.url}>{link.name}</Link>)}
+      {links.map((link, i) => <Link to={link.url} key={i}>{link.name}</Link>)}
       <Current>
         {current}
       </Current>

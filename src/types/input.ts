@@ -2,6 +2,7 @@ import { ChangeEvent, FocusEvent, ReactNode } from "react";
 
 export interface InputProps {
   id: string;
+  name?: string;
   type: string;
   placeholder?: string;
   htmlFor: string;
@@ -12,4 +13,5 @@ export interface InputProps {
   onBlur: (e: FocusEvent) => void;
   children?: ReactNode;
   isFocused: boolean;
+  isInvalid?: boolean;
 }

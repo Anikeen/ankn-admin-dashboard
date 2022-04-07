@@ -1,8 +1,8 @@
 import { FC } from "react";
 import { InputProps } from "../../../types/input";
-import { InputRow, Label, StyledInput } from "./styled";
+import { InputRow, MainInputLabel, SMainInput } from "./styled";
 
-export const Input: FC<InputProps> = ({
+export const MainInput: FC<InputProps> = ({
   id,
   name,
   value,
@@ -15,16 +15,15 @@ export const Input: FC<InputProps> = ({
   htmlFor,
   children,
   isFocused,
+  isInvalid
 }) => {
-
-  const hasTransition = (value.length === 0 && isFocused) || (value.length > 0 && isFocused) || (value.length > 0 && !isFocused);
 
   return (
     <InputRow>
-      <Label htmlFor={htmlFor} hasTransition={hasTransition}>
+      <MainInputLabel htmlFor={htmlFor}>
         {labelText}
-      </Label>
-      <StyledInput
+      </MainInputLabel>
+      <SMainInput
         id={id}
         name={name}
         value={value}
@@ -34,6 +33,7 @@ export const Input: FC<InputProps> = ({
         onChange={onChange}
         onBlur={onBlur}
         isFocused={isFocused}
+        isInvalid={isInvalid}
       />
       {children}
     </InputRow>

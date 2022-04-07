@@ -1,4 +1,5 @@
 import { FC } from "react";
+import { useNavigate } from "react-router-dom";
 import { IProduct } from "../../../types/product";
 import { ProductBodyRow, Cell } from "./styled";
 
@@ -6,16 +7,19 @@ interface IProps {
   row: IProduct;
 }
 
-export const TableRow: FC<IProps> = ({ row }) => {
-  const cells = Object.entries(row);
+export const ProductTableRow: FC<IProps> = ({ row }) => {
+  const redirect = useNavigate();
 
   const viewProduct = (id: string) => {
-    console.log(id);
+    redirect(`/products/edit/${id}`, { replace: true })
   }
 
   return (
     <ProductBodyRow status={row.status} onClick={() => viewProduct(row.id)}>
-      {cells.map((cell, i) => <Cell key={i}>{cell[1]}</Cell>)}
+      <Cell >{row.id}</Cell>
+      <Cell >{row.title}</Cell>
+      <Cell >{row.price}</Cell>
+      <Cell >{row.status}</Cell>
     </ProductBodyRow>
   )
 }

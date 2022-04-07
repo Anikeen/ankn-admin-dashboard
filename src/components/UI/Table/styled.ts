@@ -35,7 +35,8 @@ export const ProductBodyRow = styled.tr<{ status: boolean | string }>(({ status 
   cursor: pointer;
   transition: background-color .4s, color .4s;
   &:hover {
-    background-color: #fff;
+    background-color: #4272d7;
+    color: #fff;
   }
 `)
 export const Cell = styled.td`

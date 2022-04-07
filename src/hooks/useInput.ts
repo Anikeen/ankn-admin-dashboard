@@ -18,6 +18,7 @@ export interface IUseValidation {
 
 export interface IUseInput extends IUseValidation {
   value: string;
+  setValue: any;
   onFocus: () => void;
   onChange: (e: ChangeEvent) => void;
   onBlur: (e: FocusEvent) => void;
@@ -85,6 +86,7 @@ function UseInput(initialValue: string, validations: Ivalidation): IUseInput {
 
   return {
     value,
+    setValue,
     onFocus,
     onChange,
     onBlur,

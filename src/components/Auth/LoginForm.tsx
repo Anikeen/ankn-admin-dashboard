@@ -37,7 +37,7 @@ export const LoginForm = () => {
     <Wrapper>
       <Title>Вход</Title>
 
-      <Form onSubmit={onSubmit} btnText="войти">
+      <Form onSubmit={onSubmit} btnWidth="100%" btnText="войти">
         <Input
           id="login"
           type="text"
