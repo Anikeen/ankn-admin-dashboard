@@ -1,12 +1,14 @@
 import { FC } from "react";
 import { IOrder } from "../../../types/order";
 import { ColoredBodyRow, Cell } from "./styled";
+import { useNavigate } from "react-router-dom";
 
 interface ITableRow {
   row: IOrder;
 }
 
 export const OrderTableRow: FC<ITableRow> = ({ row }) => {
+  const redirect = useNavigate();
   const cells = Object.entries(row);
   let color = '';
 
@@ -15,7 +17,7 @@ export const OrderTableRow: FC<ITableRow> = ({ row }) => {
   if (row.status === 'Доставлен') color = '#5088ff';
 
   const viewOrder = (id: number) => {
-    console.log(id);
+    redirect(`/orders/edit/${id}`, { replace: true })
   }
 
   return (

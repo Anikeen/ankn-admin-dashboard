@@ -1,8 +1,8 @@
-import { fetchOrders } from "../../api/order";
-import { Breadcrumbs } from "../../components/Layout/Admin/ContentHeader/Breadcrumbs/Breadcrumbs"
-import { ContentHeader } from "../../components/Layout/Admin/ContentHeader/ContentHeader"
-import { OrderTableRow } from "../../components/UI/Table/OrderTableRow";
-import { Table } from "../../components/UI/Table/Table"
+import { fetchOrders } from "../../../api/order";
+import { Breadcrumbs } from "../../../components/Layout/Admin/ContentHeader/Breadcrumbs/Breadcrumbs"
+import { ContentHeader } from "../../../components/Layout/Admin/ContentHeader/ContentHeader"
+import { OrderTableRow } from "../../../components/UI/Table/OrderTableRow";
+import { Table } from "../../../components/UI/Table/Table"
 
 export const Orders = () => {
   const headers = [
