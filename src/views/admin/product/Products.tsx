@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { fetchProducts } from "../../../api/product";
+import { fetchAll } from "../../../api/api";
 import { Breadcrumbs } from "../../../components/Layout/Admin/ContentHeader/Breadcrumbs/Breadcrumbs"
 import { ContentHeader } from "../../../components/Layout/Admin/ContentHeader/ContentHeader"
 import { Table } from "../../../components/UI/Table/Table"
@@ -16,11 +16,24 @@ export const Products = () => {
   const [products, setProducts] = useState([] as Array<IProduct>);
 
   useEffect(() => {
-    const getProducts = async () => {
-      const products = await fetchProducts();
-      setProducts(products);
+    try {
+      const getProducts = async () => {
+        const query = await fetchAll('/products');
+        const products: Array<IProduct> = Object.keys(query).map(productKey => {
+          return {
+            id: query[productKey].id,
+            title: query[productKey].title,
+            price: query[productKey].price,
+            sizes: query[productKey].sizes,
+            status: query[productKey].status ? 'On' : 'Off',
+          }
+        });
+        setProducts(products);
+      }
+      getProducts();
+    } catch (error) {
+      alert(error);
     }
-    getProducts();
   }, []);
 
   return (
