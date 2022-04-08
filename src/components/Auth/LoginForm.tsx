@@ -1,4 +1,4 @@
-import { FormEvent, useContext } from "react";
+import { FormEvent, useContext, useState } from "react";
 import { Form } from "../UI/Form/Form";
 import { Input } from "../UI/Form/Input";
 import { Title, Warning, Wrapper } from "./styled";
@@ -6,7 +6,7 @@ import UseInput, { IUseInput } from "../../hooks/useInput";
 import { AuthContext } from "../../context";
 
 export const LoginForm = () => {
-
+  const [isPending, setIsPending] = useState(false);
   const login: IUseInput = UseInput('', { isEmpty: true, isEmail: true, minLength: 0 });
   const password: IUseInput = UseInput('', { isEmpty: true, minLength: 6 });
 
@@ -30,14 +30,20 @@ export const LoginForm = () => {
 
     if (loginError || passwordError) return;
 
-    signIn(login.value, password.value);
+    try {
+      setIsPending(true);
+      signIn(login.value, password.value, setIsPending);
+    } catch (error) {
+      alert('false')
+    }
+
   }
 
   return (
     <Wrapper>
       <Title>Вход</Title>
 
-      <Form onSubmit={onSubmit} btnWidth="100%" btnText="войти">
+      <Form onSubmit={onSubmit} isPending={isPending} btnWidth="100%" btnText="войти">
         <Input
           id="login"
           type="text"

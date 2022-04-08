@@ -60,6 +60,7 @@ export const Warning = styled.span`
 `
 export const Button = styled.button<{ width: string }>(
   ({ width }) => `
+    position: relative;
     width: ${width};
     padding: 0 35px;
     margin-top: 20px;

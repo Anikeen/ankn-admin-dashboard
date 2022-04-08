@@ -33,4 +33,8 @@ export const GlobalStyles = createGlobalStyle`
     color: #333;
     overflow: hidden;
   }
+  section {
+    position: relative;
+    height: 100%;
+  }
 `

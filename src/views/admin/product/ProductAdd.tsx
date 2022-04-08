@@ -14,21 +14,16 @@ export const ProductAdd = () => {
   const reloadPage = useNavigate();
 
   const createProduct = async (form: MutableRefObject<HTMLFormElement | undefined>) => {
-    try {
-      const data = new FormData(form.current);
-      const product: IProducEntity = {
-        id: (new Date().valueOf()).toString().slice(6),
-        title: data.get('title'),
-        price: parseInt(data.get('price') as string),
-        sizes: data.getAll('size'),
-        status: data.get('status') ? true : false
-      }
-      await pushData<IProducEntity>('products', product);
-      reloadPage(0);
-
-    } catch (error) {
-      alert(error)
+    const data = new FormData(form.current);
+    const product: IProducEntity = {
+      id: (new Date().valueOf()).toString().slice(6),
+      title: data.get('title'),
+      price: parseInt(data.get('price') as string),
+      sizes: data.getAll('size'),
+      status: data.get('status') ? true : false
     }
+    await pushData<IProducEntity>('products', product);
+    reloadPage(0);
   }
 
   return (

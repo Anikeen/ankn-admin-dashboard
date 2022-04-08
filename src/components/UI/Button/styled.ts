@@ -9,6 +9,7 @@ interface IProps {
 
 export const Button = styled.button<IProps>(
   ({ width, color, background, hoverBackground }) => `
+    position: relative;
     width: ${width};
     padding: 0 35px;
     line-height: 40px;

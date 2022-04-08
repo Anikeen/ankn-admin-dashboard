@@ -5,6 +5,7 @@ import { ContentHeader } from "../../../components/Layout/Admin/ContentHeader/Co
 import { Table } from "../../../components/UI/Table/Table"
 import { ProductTableRow } from "../../../components/UI/Table/ProductTableRow";
 import { IProduct } from "../../../types/product";
+import { Spinner } from "../../../components/UI/Spinner/Spinner";
 
 export const Products = () => {
   const headers = [
@@ -14,6 +15,7 @@ export const Products = () => {
     'Статус',
   ];
   const [products, setProducts] = useState([] as Array<IProduct>);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     try {
@@ -29,6 +31,7 @@ export const Products = () => {
           }
         });
         setProducts(products);
+        setIsLoading(false);
       }
       getProducts();
     } catch (error) {
@@ -46,6 +49,8 @@ export const Products = () => {
         <Table headers={headers}>
           {products.map((row, i) => <ProductTableRow row={row} key={i} />)}
         </Table>
+
+        {isLoading && <Spinner background="#e5e5e5" opacity={1} ellipseColor="#4272d7" />}
       </section>
     </>
   )

@@ -17,13 +17,15 @@ interface IApp {
 export const App: FC<IApp> = ({ auth, isAuthed, user }) => {
   const [isAuth, setIsAuth] = useState(isAuthed);
 
-  const signIn = (login: string, password: string) => {
+  const signIn = (login: string, password: string, setPending: (status: boolean) => void) => {
     signInWithEmailAndPassword(auth, login, password)
       .then((userCredential) => {
+        setPending(false);
         setIsAuth(true);
       })
       .catch((error) => {
-
+        alert(error);
+        setPending(false);
       });
   }
 

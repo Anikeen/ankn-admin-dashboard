@@ -1,4 +1,4 @@
-import { FC, FormEvent, MutableRefObject, useEffect, useRef } from 'react'
+import { FC, FormEvent, MutableRefObject, useEffect, useRef, useState } from 'react'
 import UseInput, { IUseInput } from '../../hooks/useInput'
 import { IProduct } from '../../types/product'
 import { Checkbox } from '../UI/Form/Checkbox/Checkbox'
@@ -17,6 +17,7 @@ interface IProps {
 export const ProductControlForm: FC<IProps> = ({ product, callSubmitAction, btnText }) => {
   const title: IUseInput = UseInput('', { isEmpty: true, minLength: 3 });
   const price: IUseInput = UseInput('', { isEmpty: true, minLength: 3 });
+  const [isPending, setIsPending] = useState(false);
 
   useEffect(() => {
     if (product) {
@@ -58,12 +59,18 @@ export const ProductControlForm: FC<IProps> = ({ product, callSubmitAction, btnT
 
     if (titleError || priceError) return;
 
-    callSubmitAction(form);
+    try {
+      setIsPending(true);
+      callSubmitAction(form);
+    } catch (error) {
+      alert(error)
+      setIsPending(false);
+    }
   }
 
   return (
     <Wrapper>
-      <Form onSubmit={handleSubmit} btnWidth="auto" btnText={btnText} refer={form}>
+      <Form onSubmit={handleSubmit} isPending={isPending} btnWidth="auto" btnText={btnText} refer={form}>
         <MainInput
           id="title"
           name="title"

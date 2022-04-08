@@ -6,6 +6,7 @@ import { ContentHeader } from '../../../components/Layout/Admin/ContentHeader/Co
 import { ProductControlForm } from '../../../components/Product/ProductControlForm';
 import { ProductButtonBar } from '../../../components/Product/styled';
 import { Button } from '../../../components/UI/Button/styled';
+import { Spinner } from '../../../components/UI/Spinner/Spinner';
 import { IProducEntity, IProduct } from '../../../types/product';
 
 export const ProductEdit = () => {
@@ -17,6 +18,8 @@ export const ProductEdit = () => {
   const ID = id ? id : '';
   const [product, setProduct] = useState({} as IProduct);
   const [productKey, setProductKey] = useState('');
+  const [isLoading, setIsLoading] = useState(true);
+  const [isPending, setIsPending] = useState(false);
   const reloadPage = useNavigate();
 
   useEffect(() => {
@@ -27,33 +30,31 @@ export const ProductEdit = () => {
 
         setProduct(value as IProduct);
         setProductKey(key);
+        setIsLoading(false);
       } catch (error) {
         alert(error);
+        setIsLoading(false);
       }
     }
     getProduct();
   }, []);
 
   const editProduct = async (form: MutableRefObject<HTMLFormElement | undefined>) => {
-    try {
-      const data = new FormData(form.current);
-      const productEntity: IProducEntity = {
-        id: product.id,
-        title: data.get('title'),
-        price: parseInt(data.get('price') as string),
-        sizes: data.getAll('size'),
-        status: data.get('status') ? true : false
-      }
-      await updateElement('products', productKey, productEntity);
-      reloadPage(0);
-
-    } catch (error) {
-      alert(error)
+    const data = new FormData(form.current);
+    const productEntity: IProducEntity = {
+      id: product.id,
+      title: data.get('title'),
+      price: parseInt(data.get('price') as string),
+      sizes: data.getAll('size'),
+      status: data.get('status') ? true : false
     }
+    await updateElement('products', productKey, productEntity);
+    reloadPage(0);
   }
 
   const deleteProduct = async () => {
     try {
+      setIsPending(true);
       const result = window.confirm('Вы действительно хотите удалить товар?')
 
       if (result) {
@@ -62,6 +63,7 @@ export const ProductEdit = () => {
       }
 
     } catch (error) {
+      setIsPending(false);
       alert(error);
     }
   }
@@ -82,10 +84,12 @@ export const ProductEdit = () => {
             onClick={deleteProduct}
           >
             удалить
+            {isPending && <Spinner background='#fff' opacity={0.8} ellipseColor='#4272d7' />}
           </Button>
         </ProductButtonBar>
 
         <ProductControlForm product={product} callSubmitAction={editProduct} btnText="сохранить" />
+        {isLoading && <Spinner background='#fff' opacity={1} ellipseColor='#4272d7' />}
       </section>
     </>
   )
