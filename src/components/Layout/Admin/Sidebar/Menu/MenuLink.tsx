@@ -11,7 +11,7 @@ interface IMenuLinkProps {
 export const MenuLink: FC<IMenuLinkProps> = ({ to, text, icon, size }) => {
   return (
     <li>
-      <StyledLink to={to}>
+      <StyledLink end to={to}>
         <NavIcon className={icon} size={size} />
         {text}
       </StyledLink>
