@@ -1,4 +1,5 @@
 import { FC, FormEvent, MutableRefObject, useEffect, useRef, useState } from 'react'
+import { useLocation } from 'react-router-dom'
 import UseInput, { IUseInput } from '../../hooks/useInput'
 import { IProduct } from '../../types/product'
 import { Checkbox } from '../UI/Form/Checkbox/Checkbox'
@@ -43,8 +44,9 @@ export const ProductControlForm: FC<IProps> = ({ product, callSubmitAction, btnT
   let priceError: boolean = (price.isDirty && price.isEmpty) || (price.isDirty && price.minLengthError);
 
   const form: MutableRefObject<HTMLFormElement | undefined> = useRef();
+  const location = useLocation();
 
-  const handleSubmit = (e: FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
 
     if (title.isEmpty) {
@@ -61,7 +63,25 @@ export const ProductControlForm: FC<IProps> = ({ product, callSubmitAction, btnT
 
     try {
       setIsPending(true);
-      callSubmitAction(form);
+      await callSubmitAction(form);
+
+      if (location.pathname === '/products/add') {
+        title.setValue('');
+        price.setValue('');
+
+        const size = document.querySelectorAll<HTMLInputElement>(`input[name=size]`);
+        size.forEach(item => {
+          item!.checked = false;
+        });
+
+        const status = document.querySelector<HTMLInputElement>(`input[name=status]`);
+        status!.checked = true;
+
+        title.setDirty(false);
+        price.setDirty(false);
+      }
+
+      setIsPending(false);
     } catch (error) {
       alert(error)
       setIsPending(false);

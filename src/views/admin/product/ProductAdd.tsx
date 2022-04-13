@@ -23,7 +23,7 @@ export const ProductAdd = () => {
       status: data.get('status') ? true : false
     }
     await pushData<IProducEntity>('products', product);
-    reloadPage(0);
+    // reloadPage('/products/add');
   }
 
   return (

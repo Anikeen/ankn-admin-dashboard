@@ -49,7 +49,7 @@ export const ProductEdit = () => {
       status: data.get('status') ? true : false
     }
     await updateElement('products', productKey, productEntity);
-    reloadPage(0);
+    reloadPage(`/products/edit/${product.id}`);
   }
 
   const deleteProduct = async () => {
