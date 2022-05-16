@@ -10,10 +10,11 @@ interface ISubListProps {
 
 export const SubList: FC<ISubListProps> = ({ name, icon, size, children }) => {
   const [isShown, setIsShown] = useState(false);
+  const handleClick = () => setIsShown(!isShown);
 
   return (
     <li>
-      <Button onClick={() => setIsShown(!isShown)}>
+      <Button onClick={handleClick} type="button">
         <NavIcon className={icon} size={size} />
         {name}
         <Shevron className="icon-chevron-down" isShown={isShown} />

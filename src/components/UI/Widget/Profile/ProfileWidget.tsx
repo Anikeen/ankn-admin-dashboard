@@ -3,26 +3,22 @@ import { AuthContext } from '../../../../context'
 import { Dropdown } from "../../Dropdown/Dropdown"
 import { Dropbox } from "./Dropbox"
 import { Avatar } from "./Avatar"
-import { ToggleUserName } from "./styled"
+import { AvatarUserName } from "./styled"
 
 export const ProfileWidget = () => {
-
   const { user } = useContext(AuthContext);
 
   const avatar = (
     <Avatar width={45} height={45} >
-      <ToggleUserName>
+      <AvatarUserName>
         {user.name}
-      </ToggleUserName>
+      </AvatarUserName>
     </Avatar>
   )
 
   const dropbox = <Dropbox />
 
   return (
-    <Dropdown
-      toggle={avatar}
-      dropbox={dropbox}
-    />
+    <Dropdown toggle={avatar} dropbox={dropbox} />
   )
 }

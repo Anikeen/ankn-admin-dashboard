@@ -15,9 +15,16 @@ interface IProps {
   btnText: string;
 }
 
+const defaultValidation = {
+  notEmpty: true,
+  minLength: 3
+}
+
+const defaultInitialValue = '';
+
 export const ProductControlForm: FC<IProps> = ({ product, callSubmitAction, btnText }) => {
-  const title: IUseInput = UseInput('', { isEmpty: true, minLength: 3 });
-  const price: IUseInput = UseInput('', { isEmpty: true, minLength: 3 });
+  const title: IUseInput = UseInput(defaultInitialValue, defaultValidation);
+  const price: IUseInput = UseInput(defaultInitialValue, defaultValidation);
   const [isPending, setIsPending] = useState(false);
 
   useEffect(() => {

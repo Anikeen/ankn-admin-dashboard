@@ -1,7 +1,7 @@
 import { FC, ReactNode } from "react"
 import { Count, Name, Wrapper } from "./styled"
 
-interface IInfoWidget {
+interface IProps {
   icon: ReactNode;
   count: number;
   name: string;
@@ -11,7 +11,7 @@ interface IInfoWidget {
   }
 }
 
-export const InfoWidget: FC<IInfoWidget> = ({ icon, count, name, gradient }) => {
+export const InfoWidget: FC<IProps> = ({ icon, count, name, gradient }) => {
   return (
     <Wrapper gradientFrom={gradient.from} gradientTo={gradient.to}>
       {icon}

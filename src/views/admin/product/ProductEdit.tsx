@@ -84,12 +84,12 @@ export const ProductEdit = () => {
             onClick={deleteProduct}
           >
             удалить
-            {isPending && <Spinner background='#fff' opacity={0.8} ellipseColor='#4272d7' />}
+            {isPending && <Spinner background='#fff' opacity={0.8} color='#4272d7' />}
           </Button>
         </ProductButtonBar>
 
         <ProductControlForm product={product} callSubmitAction={editProduct} btnText="сохранить" />
-        {isLoading && <Spinner background='#fff' opacity={1} ellipseColor='#4272d7' />}
+        {isLoading && <Spinner background='#fff' opacity={1} color='#4272d7' />}
       </section>
     </>
   )

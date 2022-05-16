@@ -4,18 +4,18 @@ import { AnimEllipse, Ellipsis, Overlay, Wrapper } from "./styled"
 interface IProps {
   background: string;
   opacity: number;
-  ellipseColor: string;
+  color: string;
 }
 
-export const Spinner: FC<IProps> = ({ background, opacity, ellipseColor }) => {
+export const Spinner: FC<IProps> = ({ background, opacity, color }) => {
   return (
     <Wrapper background={background} opacity={opacity} >
       <Overlay>
         <Ellipsis>
-          <AnimEllipse background={ellipseColor} />
-          <AnimEllipse background={ellipseColor} />
-          <AnimEllipse background={ellipseColor} />
-          <AnimEllipse background={ellipseColor} />
+          <AnimEllipse background={color} />
+          <AnimEllipse background={color} />
+          <AnimEllipse background={color} />
+          <AnimEllipse background={color} />
         </Ellipsis>
       </Overlay>
     </Wrapper>

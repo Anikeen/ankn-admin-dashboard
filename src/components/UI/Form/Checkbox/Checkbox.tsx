@@ -1,5 +1,5 @@
 import { Label, SCheckbox } from './styled'
-import { FC, useEffect, useState } from 'react';
+import { FC } from 'react';
 
 interface IProps {
   title: string;

@@ -1,12 +1,12 @@
 import { FC } from "react"
 import { Wrapper, Link, Current, HomeIcon } from "./styled"
 
-interface IBreadcrumbs {
+interface IProps {
   links: Array<{ url: string; name: string }>;
   current: string;
 }
 
-export const Breadcrumbs: FC<IBreadcrumbs> = ({ links, current }) => {
+export const Breadcrumbs: FC<IProps> = ({ links, current }) => {
   return (
     <Wrapper>
       <Link to="/">
@@ -14,7 +14,10 @@ export const Breadcrumbs: FC<IBreadcrumbs> = ({ links, current }) => {
         Главная
       </Link>
 
-      {links.map((link, i) => <Link to={link.url} key={i}>{link.name}</Link>)}
+      {
+        links.map((link, i) => <Link to={link.url} key={i} >{link.name}</Link>)
+      }
+
       <Current>
         {current}
       </Current>

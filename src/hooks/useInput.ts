@@ -1,10 +1,10 @@
 import { useState, useEffect, ChangeEvent, FocusEvent } from 'react';
 
 interface Ivalidation {
-  minLength: number;
+  minLength?: number;
   isEmail?: boolean;
   isName?: boolean;
-  isEmpty?: boolean;
+  notEmpty?: boolean;
 }
 
 type validationCallback = (value: string) => void;
@@ -27,7 +27,7 @@ export interface IUseInput extends IUseValidation {
   isFocused: boolean;
 }
 
-function useValidation(value: string, validations: Ivalidation, setValue: validationCallback) {
+function useValidation(validations: Ivalidation, value: string, setValue: validationCallback) {
   const [minLengthError, setMinLengthError] = useState(true);
   const [isEmpty, setEmpty] = useState(true);
   const [emailError, setEmailError] = useState(true);
@@ -36,9 +36,9 @@ function useValidation(value: string, validations: Ivalidation, setValue: valida
     for (const validation in validations) {
       switch (validation) {
         case 'minLength':
-          value.length < validations['minLength'] ? setMinLengthError(true) : setMinLengthError(false);
+          value.length < validations['minLength']! ? setMinLengthError(true) : setMinLengthError(false);
           break;
-        case 'isEmpty':
+        case 'notEmpty':
           value ? setEmpty(false) : setEmpty(true);
           break;
         case 'isEmail':
@@ -62,11 +62,11 @@ function useValidation(value: string, validations: Ivalidation, setValue: valida
   }
 }
 
-function UseInput(initialValue: string, validations: Ivalidation): IUseInput {
+function useInput(initialValue: string, validations: Ivalidation): IUseInput {
   const [value, setValue] = useState(initialValue);
   const [isDirty, setDirty] = useState(false);
   const [isFocused, setIsFocused] = useState(false);
-  const valid: IUseValidation = useValidation(value, validations, setValue);
+  const valid: IUseValidation = useValidation(validations, value, setValue);
 
   function onFocus() {
     setIsFocused(!isFocused);
@@ -87,14 +87,14 @@ function UseInput(initialValue: string, validations: Ivalidation): IUseInput {
   return {
     value,
     setValue,
-    onFocus,
-    onChange,
-    onBlur,
     isDirty,
     setDirty,
     isFocused,
+    onFocus,
+    onChange,
+    onBlur,
     ...valid
   }
 }
 
-export default UseInput;
+export default useInput;

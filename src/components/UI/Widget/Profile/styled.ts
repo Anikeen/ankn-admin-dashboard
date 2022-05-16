@@ -31,7 +31,7 @@ export const User = styled.div`
   text-transform: capitalize;
   color: #333;
 `
-export const ToggleUserName = styled.div`
+export const AvatarUserName = styled.div`
   font-size: 1.125rem;
 `
 

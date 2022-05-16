@@ -50,7 +50,7 @@ export const Products = () => {
           {products.map((row, i) => <ProductTableRow row={row} key={i} />)}
         </Table>
 
-        {isLoading && <Spinner background="#e5e5e5" opacity={1} ellipseColor="#4272d7" />}
+        {isLoading && <Spinner background="#e5e5e5" opacity={1} color="#4272d7" />}
       </section>
     </>
   )

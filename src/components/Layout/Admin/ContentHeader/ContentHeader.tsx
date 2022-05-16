@@ -1,11 +1,11 @@
 import { FC } from "react";
 import { Title, Wrapper } from "./styled"
 
-interface IContentHeader {
+interface IProps {
   title: string;
 }
 
-export const ContentHeader: FC<IContentHeader> = ({ title, children }) => {
+export const ContentHeader: FC<IProps> = ({ title, children }) => {
   return (
     <Wrapper>
       <Title>{title}</Title>

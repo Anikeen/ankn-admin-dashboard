@@ -1,12 +1,12 @@
 import { FC } from 'react'
 import { StyledIcon } from './styled'
 
-interface IIcon {
+interface IProps {
   className: string;
   size: number;
 }
 
-export const Icon: FC<IIcon> = ({ className, size }) => {
+export const Icon: FC<IProps> = ({ className, size }) => {
   return (
     <StyledIcon className={className} size={size} />
   )

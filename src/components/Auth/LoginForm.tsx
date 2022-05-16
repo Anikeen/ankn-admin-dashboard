@@ -2,16 +2,28 @@ import { FormEvent, useContext, useState } from "react";
 import { Form } from "../UI/Form/Form";
 import { Input } from "../UI/Form/Input";
 import { Title, Warning, Wrapper } from "./styled";
-import UseInput, { IUseInput } from "../../hooks/useInput";
+import useInput, { IUseInput } from "../../hooks/useInput";
 import { AuthContext } from "../../context";
+
+const inputInitialValue = '';
+
+const loginValidation = {
+  notEmpty: true,
+  isEmail: true,
+}
+
+const passwordValidation = {
+  notEmpty: true,
+  minLength: 6
+}
 
 export const LoginForm = () => {
   const [isPending, setIsPending] = useState(false);
-  const login: IUseInput = UseInput('', { isEmpty: true, isEmail: true, minLength: 0 });
-  const password: IUseInput = UseInput('', { isEmpty: true, minLength: 6 });
+  const login: IUseInput = useInput(inputInitialValue, loginValidation);
+  const password: IUseInput = useInput(inputInitialValue, passwordValidation);
 
-  let loginError: boolean = (login.isDirty && login.isEmpty) || (login.isDirty && login.emailError);
-  let passwordError: boolean = (password.isDirty && password.isEmpty) || (password.isDirty && password.minLengthError);
+  let loginValidationError: boolean = (login.isDirty && login.isEmpty) || (login.isDirty && login.emailError);
+  let passwordValidationError: boolean = (password.isDirty && password.isEmpty) || (password.isDirty && password.minLengthError);
 
   const { signIn } = useContext(AuthContext);
 
@@ -20,15 +32,15 @@ export const LoginForm = () => {
 
     if (login.isEmpty) {
       login.setDirty(true);
-      loginError = true;
+      loginValidationError = true;
     }
 
     if (password.isEmpty) {
       password.setDirty(true);
-      passwordError = true;
+      passwordValidationError = true;
     }
 
-    if (loginError || passwordError) return;
+    if (loginValidationError || passwordValidationError) return;
 
     try {
       setIsPending(true);

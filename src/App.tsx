@@ -8,16 +8,20 @@ import { Template } from "./components/Layout/Admin/Template";
 import { signInWithEmailAndPassword, signOut } from "firebase/auth";
 import { IUser } from "./types/user";
 
-interface IApp {
+interface IProps {
   auth: any;
   isAuthed: boolean;
   user: IUser;
 }
 
-export const App: FC<IApp> = ({ auth, isAuthed, user }) => {
+interface ISignIn {
+  (login: string, password: string, setPending: (status: boolean) => void): void;
+}
+
+export const App: FC<IProps> = ({ auth, isAuthed, user }) => {
   const [isAuth, setIsAuth] = useState(isAuthed);
 
-  const signIn = (login: string, password: string, setPending: (status: boolean) => void) => {
+  const signIn: ISignIn = (login, password, setPending) => {
     signInWithEmailAndPassword(auth, login, password)
       .then((userCredential) => {
         setPending(false);

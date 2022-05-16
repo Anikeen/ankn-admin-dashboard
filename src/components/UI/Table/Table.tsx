@@ -1,12 +1,12 @@
 import { FC, ReactNode } from "react"
 import { HeaderRow, STable, ColumnHeader, Wrapper } from "./styled"
 
-interface ITable {
+interface IProps {
   headers: Array<string>;
   children: ReactNode;
 }
 
-export const Table: FC<ITable> = ({ headers, children }) => {
+export const Table: FC<IProps> = ({ headers, children }) => {
   return (
     <Wrapper>
       <STable>
