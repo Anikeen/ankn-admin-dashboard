@@ -1,6 +1,7 @@
 import { FC, ReactNode, useState } from 'react'
-import { Shevron } from '../Icon/Shevron';
-import { Dropbox, Toggle, Wrapper } from './styled';
+import styled from "styled-components";
+import { Shevron } from '../Icon/Shevron/Shevron';
+import { Dropbox } from './Dropbox';
 
 interface IProps {
   toggle: ReactNode;
@@ -15,7 +16,7 @@ export const Dropdown: FC<IProps> = ({ toggle, dropbox }) => {
     <Wrapper>
       <Toggle onClick={handleClick}>
         {toggle}
-        <Shevron className="icon-chevron-down" isShown={isShown} />
+        <Shevron isShown={isShown} />
       </Toggle>
 
       <Dropbox isShown={isShown}>
@@ -24,3 +25,11 @@ export const Dropdown: FC<IProps> = ({ toggle, dropbox }) => {
     </Wrapper>
   )
 }
+
+const Wrapper = styled.div`
+  position: relative;
+`
+const Toggle = styled.button`
+  display: flex;
+  align-items: center;
+`

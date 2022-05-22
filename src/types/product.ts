@@ -6,7 +6,7 @@ export interface IProduct {
   title: string;
 }
 
-export interface IProducEntity {
+export interface IProductEntity {
   id: string;
   title: FormDataEntryValue | null;
   price: number;

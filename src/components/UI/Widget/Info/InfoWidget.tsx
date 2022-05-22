@@ -1,5 +1,5 @@
 import { FC, ReactNode } from "react"
-import { Count, Name, Wrapper } from "./styled"
+import { Count, Name, Wrapper } from "./styles";
 
 interface IProps {
   icon: ReactNode;

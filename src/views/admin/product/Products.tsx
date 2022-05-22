@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { fetchAll } from "../../../api/api";
-import { Breadcrumbs } from "../../../components/Layout/Admin/ContentHeader/Breadcrumbs/Breadcrumbs"
+import { Breadcrumbs } from "../../../components/Layout/Admin/Breadcrumbs/Breadcrumbs"
 import { ContentHeader } from "../../../components/Layout/Admin/ContentHeader/ContentHeader"
 import { Table } from "../../../components/UI/Table/Table"
-import { ProductTableRow } from "../../../components/UI/Table/ProductTableRow";
+import { ProductTableRow } from "../../../components/Product/ProductTableRow";
 import { IProduct } from "../../../types/product";
 import { Spinner } from "../../../components/UI/Spinner/Spinner";
 
@@ -50,7 +50,7 @@ export const Products = () => {
           {products.map((row, i) => <ProductTableRow row={row} key={i} />)}
         </Table>
 
-        {isLoading && <Spinner background="#e5e5e5" opacity={1} color="#4272d7" />}
+        {isLoading && <Spinner background="#fff" opacity={1} color="#4272d7" />}
       </section>
     </>
   )

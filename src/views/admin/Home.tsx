@@ -1,13 +1,13 @@
 import { Grid } from "../../components/Grid/Grid"
 import { GridItem } from "../../components/Grid/GridItem"
 import { ContentHeader } from "../../components/Layout/Admin/ContentHeader/ContentHeader"
-import { Icon } from "../../components/UI/Icon/Icon"
+import { Icon } from "../../components/UI/Icon/Icon/Icon"
 import { InfoWidget } from "../../components/UI/Widget/Info/InfoWidget"
 
 export const Home = () => {
   const widgets = [
     {
-      icon: <Icon className="icon-truck" size={4} />,
+      icon: <Icon className="icon-truck" size={4} color='' />,
       count: 1000,
       name: 'Кол-во заказов',
       gradient: {
@@ -16,7 +16,7 @@ export const Home = () => {
       }
     },
     {
-      icon: <Icon className="icon-shopping-cart" size={4} />,
+      icon: <Icon className="icon-shopping-cart" size={4} color='' />,
       count: 10,
       name: 'Новых заказов',
       gradient: {
@@ -25,7 +25,7 @@ export const Home = () => {
       }
     },
     {
-      icon: <Icon className="icon-t-shirt" size={4} />,
+      icon: <Icon className="icon-t-shirt" size={4} color='' />,
       count: 3000,
       name: 'Кол-во товаров',
       gradient: {

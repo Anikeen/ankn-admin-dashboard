@@ -1,6 +1,6 @@
 import { FC, FormEvent, ReactNode } from 'react';
+import styled from "styled-components";
 import { Spinner } from '../Spinner/Spinner';
-import { Button } from './styled';
 
 interface IProps {
   onSubmit: (e: FormEvent) => void;
@@ -22,3 +22,21 @@ export const Form: FC<IProps> = ({ onSubmit, isPending, btnWidth, btnText, child
     </form>
   );
 }
+
+const Button = styled.button<{ width: string }>(
+  ({ width }) => `
+    position: relative;
+    width: ${width};
+    padding: 0 35px;
+    margin-top: 20px;
+    line-height: 40px;
+    text-transform: uppercase;
+    color: #fff;
+    background-color: #4272d7;
+    border-radius: 3px;
+    transition: background-color .3s ease;
+    &:hover {
+      background-color: #2f58ae;
+    }    
+  `
+)

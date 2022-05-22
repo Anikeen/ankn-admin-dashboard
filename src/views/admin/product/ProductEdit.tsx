@@ -1,13 +1,14 @@
 import { MutableRefObject, useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { destroyElement, fetchSingleElement, updateElement } from '../../../api/api';
-import { Breadcrumbs } from '../../../components/Layout/Admin/ContentHeader/Breadcrumbs/Breadcrumbs'
+import { Breadcrumbs } from '../../../components/Layout/Admin/Breadcrumbs/Breadcrumbs'
 import { ContentHeader } from '../../../components/Layout/Admin/ContentHeader/ContentHeader'
 import { ProductControlForm } from '../../../components/Product/ProductControlForm';
-import { ProductButtonBar } from '../../../components/Product/styled';
-import { Button } from '../../../components/UI/Button/styled';
+import { ButtonBar } from '../../../components/Product/ButtonBar';
+import { Button } from '../../../components/UI/Button/Button';
 import { Spinner } from '../../../components/UI/Spinner/Spinner';
-import { IProducEntity, IProduct } from '../../../types/product';
+import { IProductEntity, IProduct } from '../../../types/product';
+import { SectionWrapper } from '../../../styles/common';
 
 export const ProductEdit = () => {
   const links = [{
@@ -41,7 +42,7 @@ export const ProductEdit = () => {
 
   const editProduct = async (form: MutableRefObject<HTMLFormElement | undefined>) => {
     const data = new FormData(form.current);
-    const productEntity: IProducEntity = {
+    const productEntity: IProductEntity = {
       id: product.id,
       title: data.get('title'),
       price: parseInt(data.get('price') as string),
@@ -59,7 +60,7 @@ export const ProductEdit = () => {
 
       if (result) {
         await destroyElement('products', productKey);
-        reloadPage('/products')
+        // reloadPage('/products')
       }
 
     } catch (error) {
@@ -75,7 +76,7 @@ export const ProductEdit = () => {
       </ContentHeader>
 
       <section>
-        <ProductButtonBar>
+        <ButtonBar>
           <Button
             width='auto'
             color='#fff'
@@ -86,10 +87,12 @@ export const ProductEdit = () => {
             удалить
             {isPending && <Spinner background='#fff' opacity={0.8} color='#4272d7' />}
           </Button>
-        </ProductButtonBar>
+        </ButtonBar>
 
-        <ProductControlForm product={product} callSubmitAction={editProduct} btnText="сохранить" />
-        {isLoading && <Spinner background='#fff' opacity={1} color='#4272d7' />}
+        <SectionWrapper>
+          <ProductControlForm product={product} callSubmitAction={editProduct} btnText="сохранить" />
+          {isLoading && <Spinner background='#fff' opacity={1} color='#4272d7' />}
+        </SectionWrapper>
       </section>
     </>
   )

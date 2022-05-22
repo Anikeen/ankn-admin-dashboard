@@ -1,5 +1,5 @@
 import { FC, ReactNode } from "react"
-import { HeaderRow, STable, ColumnHeader, Wrapper } from "./styled"
+import { ColumnHeader, HeaderRow, STable, Wrapper } from "./styled";
 
 interface IProps {
   headers: Array<string>;

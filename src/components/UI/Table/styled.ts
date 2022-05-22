@@ -22,23 +22,6 @@ export const ColumnHeader = styled.th`
   vertical-align: middle;
   white-space: nowrap;
 `
-export const ColoredBodyRow = styled.tr(({ color }) => `
-  background-color: ${color};
-  cursor: pointer;
-  transition: background-color .4s, color .4s;
-  &:hover {
-    background-color: #fff;
-  }
-`)
-export const ProductBodyRow = styled.tr<{ status: boolean | string }>(({ status }) => `
-  color: ${status === 'On' ? 'inherit' : '#ccc'};
-  cursor: pointer;
-  transition: background-color .4s, color .4s;
-  &:hover {
-    background-color: #4272d7;
-    color: #fff;
-  }
-`)
 export const Cell = styled.td`
   padding: 12px 20px;
 `

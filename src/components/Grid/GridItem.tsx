@@ -1,15 +1,21 @@
 import { FC, ReactNode } from "react"
-import { Item } from "./styled"
+import styled from "styled-components";
 
-interface IGridItem {
+interface IProps {
   width: number;
   children: ReactNode;
 }
 
-export const GridItem: FC<IGridItem> = ({ width, children }) => {
+export const GridItem: FC<IProps> = ({ width, children }) => {
   return (
-    <Item width={width}>
+    <Wrapper width={width}>
       {children}
-    </Item>
+    </Wrapper>
   )
 }
+
+const Wrapper = styled.div<{ width: number }>(({ width }) => `
+  flex-basis: ${width}%;
+  padding-right: 15px;
+  padding-left: 15px;
+`)

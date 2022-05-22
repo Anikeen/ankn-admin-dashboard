@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { AnimEllipse, Ellipsis, Overlay, Wrapper } from "./styled"
+import { AnimEllipse, Container, Overlay, Wrapper } from "./styles";
 
 interface IProps {
   background: string;
@@ -11,12 +11,12 @@ export const Spinner: FC<IProps> = ({ background, opacity, color }) => {
   return (
     <Wrapper background={background} opacity={opacity} >
       <Overlay>
-        <Ellipsis>
+        <Container>
           <AnimEllipse background={color} />
           <AnimEllipse background={color} />
           <AnimEllipse background={color} />
           <AnimEllipse background={color} />
-        </Ellipsis>
+        </Container>
       </Overlay>
     </Wrapper>
   )

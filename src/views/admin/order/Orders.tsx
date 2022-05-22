@@ -1,7 +1,7 @@
 import { fetchOrders } from "../../../api/order";
-import { Breadcrumbs } from "../../../components/Layout/Admin/ContentHeader/Breadcrumbs/Breadcrumbs"
+import { Breadcrumbs } from "../../../components/Layout/Admin/Breadcrumbs/Breadcrumbs"
 import { ContentHeader } from "../../../components/Layout/Admin/ContentHeader/ContentHeader"
-import { OrderTableRow } from "../../../components/UI/Table/OrderTableRow";
+import { OrderTableRow } from "../../../components/Order/OrderTableRow";
 import { Table } from "../../../components/UI/Table/Table"
 
 export const Orders = () => {
