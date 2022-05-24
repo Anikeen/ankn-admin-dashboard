@@ -4,7 +4,7 @@ import { IUser } from "../types/user";
 interface IAuthContext {
   isAuth: boolean;
   auth: any;
-  setIsAuth: any;
+  setIsAuth: (state: boolean) => void;
   user: IUser;
 }
 

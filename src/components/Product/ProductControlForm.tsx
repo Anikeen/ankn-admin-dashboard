@@ -1,7 +1,8 @@
 import { FC, FormEvent, MutableRefObject, useEffect, useRef, useState } from 'react'
 import { useLocation } from 'react-router-dom'
 import styled from "styled-components";
-import UseInput, { IUseInput } from '../../hooks/useInput'
+import UseInput from '../../hooks/useInput'
+import useValidation from '../../hooks/useValidadtion';
 import { IProduct } from '../../types/product'
 import { Checkbox } from '../UI/Form/CheckboxRow/Checkbox'
 import { CheckboxRow } from '../UI/Form/CheckboxRow/CheckboxRow'
@@ -24,9 +25,13 @@ const defaultValidation = {
 const defaultInitialValue = '';
 
 export const ProductControlForm: FC<IProps> = ({ product, callSubmitAction, btnText }) => {
-  const title: IUseInput = UseInput(defaultInitialValue, defaultValidation);
-  const price: IUseInput = UseInput(defaultInitialValue, defaultValidation);
   const [isPending, setIsPending] = useState(false);
+
+  const title = UseInput(defaultInitialValue);
+  const price = UseInput(defaultInitialValue);
+
+  const titleValid = useValidation(defaultValidation, title.value, title.setValue);
+  const priceValid = useValidation(defaultValidation, price.value, price.setValue);
 
   useEffect(() => {
     if (product) {
@@ -48,8 +53,8 @@ export const ProductControlForm: FC<IProps> = ({ product, callSubmitAction, btnT
     }
   }, [product]);
 
-  let titleError: boolean = (title.isDirty && title.isEmpty) || (title.isDirty && title.minLengthError);
-  let priceError: boolean = (price.isDirty && price.isEmpty) || (price.isDirty && price.minLengthError);
+  let titleError: boolean = (title.isDirty && titleValid.isEmpty) || (title.isDirty && titleValid.minLengthError);
+  let priceError: boolean = (price.isDirty && priceValid.isEmpty) || (price.isDirty && priceValid.minLengthError);
 
   const form: MutableRefObject<HTMLFormElement | undefined> = useRef();
   const location = useLocation();
@@ -57,12 +62,12 @@ export const ProductControlForm: FC<IProps> = ({ product, callSubmitAction, btnT
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
 
-    if (title.isEmpty) {
+    if (titleValid.isEmpty) {
       title.setDirty(true);
       titleError = true;
     }
 
-    if (price.isEmpty) {
+    if (priceValid.isEmpty) {
       price.setDirty(true);
       priceError = true;
     }
@@ -117,8 +122,8 @@ export const ProductControlForm: FC<IProps> = ({ product, callSubmitAction, btnT
           isFocused={title.isFocused}
           isInvalid={titleError}
         />
-        {(title.isDirty && title.isEmpty) && <Warning>Это поле обязательно</Warning>}
-        {(title.isDirty && !title.isEmpty && title.minLengthError) && <Warning>Не менее {title.minLength} символов</Warning>}
+        {(title.isDirty && titleValid.isEmpty) && <Warning>Это поле обязательно</Warning>}
+        {(title.isDirty && !titleValid.isEmpty && titleValid.minLengthError) && <Warning>Не менее {titleValid.minLength} символов</Warning>}
       </InputRow>
 
       <InputRow>
@@ -140,8 +145,8 @@ export const ProductControlForm: FC<IProps> = ({ product, callSubmitAction, btnT
           isFocused={price.isFocused}
           isInvalid={priceError}
         />
-        {(price.isDirty && price.isEmpty) && <Warning>Это поле обязательно</Warning>}
-        {(price.isDirty && !price.isEmpty && price.minLengthError) && <Warning>Не менее {price.minLength} символов</Warning>}
+        {(price.isDirty && priceValid.isEmpty) && <Warning>Это поле обязательно</Warning>}
+        {(price.isDirty && !priceValid.isEmpty && priceValid.minLengthError) && <Warning>Не менее {priceValid.minLength} символов</Warning>}
       </InputRow>
 
       <CheckboxRow title="Размеры">

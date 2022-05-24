@@ -1,10 +1,11 @@
 import { FormEvent, useState } from "react";
 import styled from "styled-components";
 import { Form } from "../UI/Form/Form";
-import useInput, { IUseInput } from "../../hooks/useInput";
+import useInput from "../../hooks/useInput";
 import { AuthInput } from "../UI/Form/InputRow/Input/AuthInput";
 import { AuthLabel } from "../UI/Form/InputRow/Label/AuthLabel";
 import { useFirebaseSignIn } from "../../hooks/firebase";
+import useValidation from "../../hooks/useValidadtion";
 
 const inputInitialValue = '';
 
@@ -20,23 +21,27 @@ const passwordValidation = {
 
 export const LoginForm = () => {
   const [isPending, setIsPending] = useState(false);
-  const login: IUseInput = useInput(inputInitialValue, loginValidation);
-  const password: IUseInput = useInput(inputInitialValue, passwordValidation);
 
-  let loginValidationError: boolean = (login.isDirty && login.isEmpty) || (login.isDirty && login.emailError);
-  let passwordValidationError: boolean = (password.isDirty && password.isEmpty) || (password.isDirty && password.minLengthError);
+  const login = useInput(inputInitialValue);
+  const password = useInput(inputInitialValue);
+
+  const loginValid = useValidation(loginValidation, login.value, login.setValue);
+  const passwordValid = useValidation(passwordValidation, password.value, password.setValue);
+
+  let loginValidationError: boolean = (login.isDirty && loginValid.isEmpty) || (login.isDirty && loginValid.emailError);
+  let passwordValidationError: boolean = (password.isDirty && passwordValid.isEmpty) || (password.isDirty && passwordValid.minLengthError);
 
   const handleLogin = useFirebaseSignIn();
 
   const onSubmit = (e: FormEvent) => {
     e.preventDefault();
 
-    if (login.isEmpty) {
+    if (loginValid.isEmpty) {
       login.setDirty(true);
       loginValidationError = true;
     }
 
-    if (password.isEmpty) {
+    if (passwordValid.isEmpty) {
       password.setDirty(true);
       passwordValidationError = true;
     }
@@ -74,8 +79,8 @@ export const LoginForm = () => {
             onBlur={login.onBlur}
             isFocused={login.isFocused}
           />
-          {(login.isDirty && login.isEmpty) && <Warning>Это поле обязательно</Warning>}
-          {(login.isDirty && !login.isEmpty && login.emailError) && <Warning>Введите корректный email</Warning>}
+          {(login.isDirty && loginValid.isEmpty) && <Warning>Это поле обязательно</Warning>}
+          {(login.isDirty && !loginValid.isEmpty && loginValid.emailError) && <Warning>Введите корректный email</Warning>}
         </InputRow>
 
         <InputRow>
@@ -94,8 +99,8 @@ export const LoginForm = () => {
             onBlur={password.onBlur}
             isFocused={password.isFocused}
           />
-          {(password.isDirty && password.isEmpty) && <Warning>Это поле обязательно</Warning>}
-          {(password.isDirty && !password.isEmpty && password.minLengthError) && <Warning>Не менее {password.minLength} символов</Warning>}
+          {(password.isDirty && passwordValid.isEmpty) && <Warning>Это поле обязательно</Warning>}
+          {(password.isDirty && !passwordValid.isEmpty && passwordValid.minLengthError) && <Warning>Не менее {passwordValid.minLength} символов</Warning>}
         </InputRow>
       </Form>
     </Wrapper>
