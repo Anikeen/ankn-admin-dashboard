@@ -3,8 +3,8 @@ import { IUser } from "../types/user";
 
 interface IAuthContext {
   isAuth: boolean;
-  signIn: (login: string, password: string, setPending: (status: boolean) => void) => void;
-  logout: () => void;
+  auth: any;
+  setIsAuth: any;
   user: IUser;
 }
 

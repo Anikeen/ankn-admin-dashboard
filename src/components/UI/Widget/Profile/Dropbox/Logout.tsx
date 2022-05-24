@@ -1,13 +1,12 @@
-import { useContext } from "react"
-import { AuthContext } from "../../../../../context";
 import styled from "styled-components";
 import { Icon } from "../../../Icon/Icon/Icon"
+import { useFirebaseLogout } from "../../../../../hooks/firebase";
 
 export const Logout = () => {
-  const { logout } = useContext(AuthContext);
+  const handleLogout = useFirebaseLogout();
 
   return (
-    <Button onClick={() => logout()}>
+    <Button onClick={handleLogout}>
       <Icon className="icon-power" size={1.8} color='' />
       Выйти
     </Button>

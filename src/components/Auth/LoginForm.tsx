@@ -1,10 +1,10 @@
-import { FormEvent, useContext, useState } from "react";
+import { FormEvent, useState } from "react";
 import styled from "styled-components";
 import { Form } from "../UI/Form/Form";
 import useInput, { IUseInput } from "../../hooks/useInput";
-import { AuthContext } from "../../context";
 import { AuthInput } from "../UI/Form/InputRow/Input/AuthInput";
 import { AuthLabel } from "../UI/Form/InputRow/Label/AuthLabel";
+import { useFirebaseSignIn } from "../../hooks/firebase";
 
 const inputInitialValue = '';
 
@@ -26,7 +26,7 @@ export const LoginForm = () => {
   let loginValidationError: boolean = (login.isDirty && login.isEmpty) || (login.isDirty && login.emailError);
   let passwordValidationError: boolean = (password.isDirty && password.isEmpty) || (password.isDirty && password.minLengthError);
 
-  const { signIn } = useContext(AuthContext);
+  const handleLogin = useFirebaseSignIn();
 
   const onSubmit = (e: FormEvent) => {
     e.preventDefault();
@@ -45,9 +45,10 @@ export const LoginForm = () => {
 
     try {
       setIsPending(true);
-      signIn(login.value, password.value, setIsPending);
+      handleLogin(login.value, password.value, setIsPending);
     } catch (error) {
-      alert('false')
+      alert('false');
+      setIsPending(false);
     }
 
   }
