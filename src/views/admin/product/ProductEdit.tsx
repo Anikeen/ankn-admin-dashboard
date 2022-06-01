@@ -60,7 +60,7 @@ export const ProductEdit = () => {
 
       if (result) {
         await destroyElement('products', productKey);
-        // reloadPage('/products')
+        reloadPage('/products')
       }
 
     } catch (error) {
