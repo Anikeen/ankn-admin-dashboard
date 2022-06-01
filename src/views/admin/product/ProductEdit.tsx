@@ -63,6 +63,7 @@ export const ProductEdit = () => {
         reloadPage('/products')
       }
 
+      setIsPending(false);
     } catch (error) {
       setIsPending(false);
       alert(error);
