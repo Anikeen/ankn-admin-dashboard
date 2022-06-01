@@ -1,6 +1,9 @@
-# Getting Started with Create React App
+# CMS for e-commerce application
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This application is based on React.
+There are several branches in this project that use different approaches to working with state and other things.
+
+You can login by `login: 1@1.ru` `password: 123456`
 
 ## Available Scripts
 
