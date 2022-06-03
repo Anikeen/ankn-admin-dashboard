@@ -1,14 +1,16 @@
-import { MutableRefObject, useEffect, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
-import { destroyElement, fetchSingleElement, updateElement } from '../../../api/api';
+import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import { destroyElement, fetchSingleElement } from '../../../api/api';
 import { Breadcrumbs } from '../../../components/Layout/Admin/Breadcrumbs/Breadcrumbs'
 import { ContentHeader } from '../../../components/Layout/Admin/ContentHeader/ContentHeader'
 import { ProductControlForm } from '../../../components/Product/ProductControlForm';
 import { ButtonBar } from '../../../components/Product/ButtonBar';
 import { Button } from '../../../components/UI/Button/Button';
 import { Spinner } from '../../../components/UI/Spinner/Spinner';
-import { IProductEntity, IProduct } from '../../../types/product';
+import { IProduct } from '../../../types/product';
 import { SectionWrapper } from '../../../styles/common';
+import { useEditProduct } from '../../../hooks/useEditProduct';
+import { useDeleteProduct } from '../../../hooks/useDeleteProduct';
 
 export const ProductEdit = () => {
   const links = [{
@@ -21,7 +23,6 @@ export const ProductEdit = () => {
   const [productKey, setProductKey] = useState('');
   const [isLoading, setIsLoading] = useState(true);
   const [isPending, setIsPending] = useState(false);
-  const reloadPage = useNavigate();
 
   useEffect(() => {
     const getProduct = async () => {
@@ -40,35 +41,9 @@ export const ProductEdit = () => {
     getProduct();
   }, []);
 
-  const editProduct = async (form: MutableRefObject<HTMLFormElement | undefined>) => {
-    const data = new FormData(form.current);
-    const productEntity: IProductEntity = {
-      id: product.id,
-      title: data.get('title'),
-      price: parseInt(data.get('price') as string),
-      sizes: data.getAll('size'),
-      status: data.get('status') ? true : false
-    }
-    await updateElement('products', productKey, productEntity);
-    reloadPage(`/products/edit/${product.id}`);
-  }
 
-  const deleteProduct = async () => {
-    try {
-      setIsPending(true);
-      const result = window.confirm('Вы действительно хотите удалить товар?')
-
-      if (result) {
-        await destroyElement('products', productKey);
-        reloadPage('/products')
-      }
-
-      setIsPending(false);
-    } catch (error) {
-      setIsPending(false);
-      alert(error);
-    }
-  }
+  const updateProduct = useEditProduct(product, productKey);
+  const deleteProduct = useDeleteProduct(productKey, setIsPending);
 
   return (
     <>
@@ -91,7 +66,7 @@ export const ProductEdit = () => {
         </ButtonBar>
 
         <SectionWrapper>
-          <ProductControlForm product={product} callSubmitAction={editProduct} btnText="сохранить" />
+          <ProductControlForm product={product} callSubmitAction={updateProduct} btnText="сохранить" />
           {isLoading && <Spinner background='#fff' opacity={1} color='#4272d7' />}
         </SectionWrapper>
       </section>
